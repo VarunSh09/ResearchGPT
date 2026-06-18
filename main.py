@@ -142,35 +142,48 @@ if query:
             vectorstore = FAISS.load_local("faiss_index",embeddings,allow_dangerous_deserialization=True)
 
             chain = RetrievalQAWithSourcesChain.from_chain_type(llm=llm, retriever=vectorstore.as_retriever(),return_source_documents=True)
-            result = chain({"question": query},return_only_outputs=True)
+            with st.spinner("Generating answer..."):
+                try: 
+                    result = chain({"question": query},return_only_outputs=True)
+                    sources = result.get("sources"," ")
+                    st.session_state.messages.append({
+                                "role": "assistant",
+                                "content": result["answer"]})                  
+                    
+                    with st.chat_message("user"):
+                        st.write(query)
+          
+                    with st.chat_message("assistant"):
+                        st.subheader("🤖 Answer")
+                    
+                        st.write(result["answer"])
+                        st.write("Sources:")
+                        if valid_url:
+                            st.subheader("🔗 URLs")
+                            for url in valid_url:
+                                st.write(url)
+                        if uploaded_pdf:
+                            st.subheader("📄 Uploaded PDF")
+                            st.write(uploaded_pdf.name)
+                except Exception as e:
+                        st.error("Sorry for inconvience. Problem generating answer. Please try later.")
+                        error_message = str(e)
+                        if "rate_limit" in error_message.lower() or "429" in error_message:
+                            st.error("⚠️ Groq API rate limit reached. Please wait a few minutes or use a different API key.")
+                        else:
+                            st.error(f"⚠️ Error: {error_message}")
             #st.header("Answer:")
             #st.write(result["answer"])
             
-            sources = result.get("sources"," ")
+          
            # if sources:
               #  st.subheader("Sources:")
              #   sources_list = sources.split("\n")
              #   for source in sources_list:
              #       st.write(source)
-            st.session_state.messages.append({
-    "role": "assistant",
-    "content": result["answer"]
-})
-            with st.chat_message("user"):
-                    st.write(query)
-
-            with st.chat_message("assistant"):
-                    st.subheader("🤖 Answer")
-                    st.write(result["answer"])
-                    st.write("Sources:")
-                    if valid_url:
-                        st.subheader("🔗 URLs")
-                        for url in valid_url:
-                            st.write(url)
-                    if uploaded_pdf:
-                        st.subheader("📄 Uploaded PDF")
-                        st.write(uploaded_pdf.name)
-
+            
+            
+                    
 
 if st.sidebar.button("Clear Chat"):
     st.session_state.messages = []
