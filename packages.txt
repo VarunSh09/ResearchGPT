@@ -1,0 +1,6 @@
+libmagic1
+poppler-utils
+
+
+
+
