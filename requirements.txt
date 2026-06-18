@@ -6,5 +6,6 @@ langchain-groq
 langchain-huggingface
 faiss-cpu
 sentence-transformers
+unstructured
 pypdf
 python-dotenv
