@@ -122,7 +122,9 @@ if process_url_clicked and (valid_url or uploaded_pdf):
         time.sleep(2)
         main_placeholder.empty()
         st.success("✅ Documents processed successfully! You can now ask questions.")
-
+elif process_url_clicked and not (valid_url or uploaded_pdf):
+    st.error("Please enter valid url at least one or Upload any pdf...")
+        
         
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
