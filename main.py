@@ -71,7 +71,7 @@ llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.2,max_tokens=300)
 if process_url_clicked :
     with st.spinner("Processing documents..."):  
         try:
-            if len(valid_url)>0:
+            if valid_url:
                 loader = UnstructuredURLLoader(urls=valid_url)
                 url_docs = loader.load()
                 st.write(f"Loaded {len(url_docs)} URL documents")
