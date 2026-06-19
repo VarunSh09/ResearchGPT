@@ -75,6 +75,7 @@ if process_url_clicked :
             if urls:
                 loader = UnstructuredURLLoader(urls=urls)
                 url_docs = loader.load()
+                st.write(f"Loaded {len(url_docs)} URL documents")
                 all_docs.extend(url_docs)
                 st.success("URLs loaded successfully!")
         except Exception as e:
