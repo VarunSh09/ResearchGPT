@@ -5,7 +5,7 @@ import time
 from langchain_classic.chains import RetrievalQAWithSourcesChain
 from langchain_classic.chains.qa_with_sources.loading import load_qa_with_sources_chain
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_community.document_loaders import UnstructuredURLLoader
+from langchain_community.document_loaders import WebBaseLoader
 from langchain_community.vectorstores import FAISS
 from langchain_groq import ChatGroq
 from langchain_huggingface import HuggingFaceEmbeddings
@@ -72,7 +72,7 @@ if process_url_clicked :
     with st.spinner("Processing documents..."):  
         try:
             if valid_url:
-                loader = UnstructuredURLLoader(urls=valid_url)
+                loader = WebBaseLoader(valid_url)
                 url_docs = loader.load()
                 st.write(f"Loaded {len(url_docs)} URL documents")
                 all_docs.extend(url_docs)
