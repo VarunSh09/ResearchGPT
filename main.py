@@ -73,7 +73,7 @@ if process_url_clicked :
     with st.spinner("Processing documents..."):  
         try:
             if urls:
-                loader = UnstructuredURLLoader(urls=urls)
+                loader = UnstructuredURLLoader(urls=valid_url)
                 url_docs = loader.load()
                 st.write(f"Loaded {len(url_docs)} URL documents")
                 all_docs.extend(url_docs)
