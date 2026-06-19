@@ -68,7 +68,7 @@ elif valid_url or uploaded_pdf:
 main_placeholder = st.empty()
 llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.2,max_tokens=300)
 
-if process_url_clicked :
+if process_url_clicked and (valid_url or uploaded_pdf):
     with st.spinner("Processing documents..."):  
         try:
             if valid_url:
