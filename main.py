@@ -77,7 +77,7 @@ if process_url_clicked :
                 url_docs = loader.load()
                 all_docs.extend(url_docs)
                 st.success("URLs loaded successfully!")
-         except Exception as e:
+        except Exception as e:
                         st.error(f"Failed to load URL!")
             
 
