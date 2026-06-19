@@ -67,16 +67,19 @@ elif valid_url or uploaded_pdf:
 
 
 main_placeholder = st.empty()
-llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.2,max_tokens=500)
+llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.2,max_tokens=300)
 
 if process_url_clicked :
     with st.spinner("Processing documents..."):  
-        if urls:
-            loader = UnstructuredURLLoader(urls=urls)
-            url_docs = loader.load()
-            all_docs.extend(url_docs)
-
-
+        try:
+            if urls:
+                loader = UnstructuredURLLoader(urls=urls)
+                url_docs = loader.load()
+                all_docs.extend(url_docs)
+                st.success("URLs loaded successfully!")
+         except Exception as e:
+             st.error(f"Failed to load URL!")
+            
 
 
         if uploaded_pdf:
