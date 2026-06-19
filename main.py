@@ -42,6 +42,7 @@ urls = []
 for i in range(3):
     url = st.sidebar.text_input(f"URL{i+1}")
     urls.append(url)
+st.write(urls)
 
 all_docs = []
 
