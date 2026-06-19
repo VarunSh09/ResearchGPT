@@ -52,7 +52,6 @@ uploaded_pdf = st.sidebar.file_uploader(
 
 
 valid_url = [u for u in urls if u.strip()]
-st.write(valid_url)
 
 process_url_clicked =  st.sidebar.button("🚀 Process")
 #file_path = "FAISS_index.pkl"
@@ -72,7 +71,7 @@ llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.2,max_tokens=300)
 if process_url_clicked :
     with st.spinner("Processing documents..."):  
         try:
-            if valid_url:
+            if len(valid_url)>0:
                 loader = UnstructuredURLLoader(urls=valid_url)
                 url_docs = loader.load()
                 st.write(f"Loaded {len(url_docs)} URL documents")
