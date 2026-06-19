@@ -133,8 +133,6 @@ for message in st.session_state.messages:
 
 if process_url_clicked and (valid_url or uploaded_pdf):
     query = st.chat_input("Ask anything about the uploaded content...")
-elif not process_url_clicked:
-    st.info("Please click the Process button to start asking questions.")
 else:
     query = st.chat_input("Please enter a valid URL or upload a PDF to ask questions about the content...",disabled=True)
 
