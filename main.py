@@ -77,6 +77,9 @@ if process_url_clicked :
                 url_docs = loader.load()
                 st.write(f"Loaded {len(url_docs)} URL documents")
                 all_docs.extend(url_docs)
+                if len(all_docs) == 0:
+                        st.error("No text could be extracted from the provided URL or PDF.")
+                        st.stop()
                 st.success("URLs loaded successfully!")
         except Exception as e:
                         st.error(f"Failed to load URL!")
@@ -107,9 +110,7 @@ if process_url_clicked :
                                         chunk_overlap=200)
         main_placeholder.info("Splitting data into chunks...")
         docs = text_splitter.split_documents(all_docs)
-        if len(docs) == 0:
-                st.error("No text could be extracted from the provided URL or PDF.")
-                st.stop()
+        
         #create embeddings and save it into to FAISS index
         embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
 
