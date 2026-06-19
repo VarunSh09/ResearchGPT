@@ -131,7 +131,7 @@ for message in st.session_state.messages:
         st.markdown(message["content"])      
     
 
-if process_url_clicked and (valid_url or uploaded_pdf):
+if  valid_url or uploaded_pdf:
     query = st.chat_input("Ask anything about the uploaded content...")
 else:
     query = st.chat_input("Please enter a valid URL or upload a PDF to ask questions about the content...",disabled=True)
