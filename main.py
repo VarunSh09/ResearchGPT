@@ -42,7 +42,6 @@ urls = []
 for i in range(3):
     url = st.sidebar.text_input(f"URL{i+1}")
     urls.append(url)
-st.write(urls)
 
 all_docs = []
 
@@ -53,7 +52,7 @@ uploaded_pdf = st.sidebar.file_uploader(
 
 
 valid_url = [u for u in urls if u.strip()]
-
+st.write(valid_url)
 
 process_url_clicked =  st.sidebar.button("🚀 Process")
 #file_path = "FAISS_index.pkl"
